@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>UET Library Management System</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/animate/animate.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}">
+    
+    <!-- Template Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+</head>
+<style>
+    .loader {
+        position: relative;
+        width: 33px;
+        height: 33px;
+        perspective: 67px;
+      }
+      
+      .loader div {
+        width: 100%;
+        height: 100%;
+        background: #06bbcc;
+        position: absolute;
+        left: 50%;
+        transform-origin: left;
+        animation: loader 2s infinite;
+      }
+      
+      .loader div:nth-child(1) {
+        animation-delay: 0.15s;
+      }
+      
+      .loader div:nth-child(2) {
+        animation-delay: 0.3s;
+      }
+      
+      .loader div:nth-child(3) {
+        animation-delay: 0.45s;
+      }
+      
+      .loader div:nth-child(4) {
+        animation-delay: 0.6s;
+      }
+      
+      .loader div:nth-child(5) {
+        animation-delay: 0.75s;
+      }
+      
+      @keyframes loader {
+        0% {
+          transform: rotateY(0deg);
+        }
+      
+        50%, 80% {
+          transform: rotateY(-180deg);
+        }
+      
+        90%, 100% {
+          opacity: 0;
+          transform: rotateY(-180deg);
+        }
+      }
+</style>
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary d-flex align-items-center justify-content-evenly"><div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>UetLibrary</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="/" class="nav-item nav-link">Dashboard</a>
+                <a href="/admin/pedagogue/new" class="nav-item nav-link">Register Pedagogue</a>
+                <a href="/admin/student/new" class="nav-item nav-link">Register Student</a>
+                <a href="/admin/book/new" class="nav-item nav-link">Add Book</a>
+                <a href="/admin/research/new" class="nav-item nav-link"> Add Scientific Research</a>
+            </div>
+            <a href="/logout" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Study Cycle</th>
+            <th scope="col">Faculty</th>
+            <th scope="col">Study Program / Profile</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Start Access</th>
+            <th scope="col">End Access</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+          <tr>
+            <th scope="row">{{student.firstName}} {{student.lastName}}</th>
+            <td>{{student.studyProgram}}</td>
+            <td>{{student.faculty}}</td>
+            <td>{{student.dega}}</td>
+            <td>{{student.phone}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.startAccess}}</td>
+            <td>{{student.endAccess}}</td>
+            <td><a class="btn btn-danger" href="/admin/delete/student/{{student.id}}">Delete</a></td>
+          </tr>
+          {% endfor %}
+        
+         
+        </tbody>
+      </table>
+    
+    <!-- Footer Start -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Kompleksi Xhura, Rruga Xhanfize Keko, Tirana, Albania</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+355689037765</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>oltasina@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        
+                        <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/UniversitetiEuropianiTiranes"><i class="fab fa-facebook-f"></i></a>
+                        
+                        <a class="btn btn-outline-light btn-social" href="https://al.linkedin.com/school/european-university-of-tirana/"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{ url_for('static', filename='img/course-1.jpg') }}" alt="Course 1">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{ url_for('static', filename='img/course-2.jpg') }}" alt="Course 2">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{ url_for('static', filename='img/course-3.jpg') }}" alt="Course 3">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{ url_for('static', filename='img/course-2.jpg') }}" alt="Course 2">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{ url_for('static', filename='img/course-3.jpg') }}" alt="Course 3">
+                        </div>
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{ url_for('static', filename='img/course-1.jpg') }}" alt="Course 1">
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+        
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Uet Library Management System</a>, All Right Reserved.
+
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a class="border-bottom" >Oltjana Sina</a>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+</body>
+
+</html>
